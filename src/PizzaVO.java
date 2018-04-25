@@ -1,46 +1,30 @@
 import java.util.Arrays;
 
-public class PizzaVO {
-	private String name;
-	private float preis;
-	private String[] zutaten;
+public class PizzaVO extends GerichtVO{
+	private int groesse;
 	
 	public PizzaVO() {
-		this(null, null, 0);
+		super(0, null, null, 0.0f);
 	}
+
+	public PizzaVO(int nummer, String name, String[] zutaten, float preis) {
+	    super(0, null, null, 0.0f);
+    }
 	
-	public PizzaVO(String name, String[] zutaten, float preis) {
-		super();
-		this.name = name;
-		this.preis = preis;
-		this.zutaten = zutaten;
+	public PizzaVO(int nummer, String name, String[] zutaten, float preis, int groesse) {
+		super(nummer, name, zutaten, preis);
+		setGroesse(groesse);
 	}
 
-	public String getName() {
-		return name;
-	}
+    public int getGroesse() {
+        return groesse;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setGroesse(int groesse) {
+        this.groesse = groesse;
+    }
 
-	public float getPreis() {
-		return preis;
-	}
-
-	public void setPreis(float preis) {
-		this.preis = preis;
-	}
-
-	public String[] getZutaten() {
-		return zutaten;
-	}
-
-	public void setZutaten(String[] zutaten) {
-		this.zutaten = zutaten;
-	}
-	
-	public void outputZutaten() {
+    public void outputZutaten() {
 		System.out.println("\nZutaten:");
 		for(String zutat: zutaten) {
 			System.out.println(zutat);
@@ -80,7 +64,7 @@ public class PizzaVO {
 
 	public Object clone() {
 		PizzaVO p;
-		p = new PizzaVO(name, zutaten, preis);
+		p = new PizzaVO(nummer, name, zutaten, preis);
 		return p;
 	}
 	
@@ -93,4 +77,12 @@ public class PizzaVO {
 			pizza += "\n-" + zutat;
 		return pizza;
 	}
+
+	public String getGerichtName() {
+	    return name;
+    }
+
+    public int getGerichtNummer() {
+	    return nummer;
+    }
 }
