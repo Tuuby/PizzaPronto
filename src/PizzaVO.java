@@ -79,10 +79,19 @@ public class PizzaVO extends GerichtVO{
 	}
 
 	public String getGerichtName() {
-	    return name;
+	    String pizza = "Pizza " + name;
+	    switch (groesse) {
+            case 1:
+                pizza += " - Normal";
+                break;
+            case 2:
+                pizza += " - Grande";
+                break;
+        }
+        return pizza;
     }
 
     public int getGerichtNummer() {
-	    return nummer;
+	    return (nummer * 10) + groesse;
     }
 }

@@ -1,25 +1,26 @@
-<<<<<<< HEAD
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Bestellung {
 	private LocalDateTime zeitstempelBestellung;
 	private LocalDateTime zeitstempelAuslieferung;
-	private PizzaVO[] warenkorb;
+	private GerichtVO[] warenkorb;
 	private final byte maxGerichte = 10;
 	private int index;
 	private KundeVO kunde;
+	private String status;
 	
 	public Bestellung() {
-		this(null, null, null);
+		this(null, null);
 	}
 
-	public Bestellung(LocalDateTime zeitstempelBestellung, LocalDateTime zeitstempelAuslieferung, KundeVO kunde) {
+	public Bestellung(LocalDateTime zeitstempelBestellung, KundeVO kunde) {
 		setZeitstempelBestellung(zeitstempelBestellung);
-		setZeitstempelAuslieferung(zeitstempelAuslieferung);
 		setKunde(kunde);
-		warenkorb = new PizzaVO[maxGerichte];
+		warenkorb = new GerichtVO[maxGerichte];
 		index = 0;
+		status = "aufgegeben";
 	}
 	
 	public LocalDateTime getZeitstempelBestellung() {
@@ -47,67 +48,52 @@ public class Bestellung {
 		return index;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + index;
-		result = prime * result + ((kunde == null) ? 0 : kunde.hashCode());
-		result = prime * result + maxGerichte;
-		result = prime * result + Arrays.hashCode(warenkorb);
-		result = prime * result + ((zeitstempelAuslieferung == null) ? 0 : zeitstempelAuslieferung.hashCode());
-		result = prime * result + ((zeitstempelBestellung == null) ? 0 : zeitstempelBestellung.hashCode());
-		return result;
+	public String getStatus() {
+		return status;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bestellung other = (Bestellung) obj;
-		if (index != other.index)
-			return false;
-		if (kunde == null) {
-			if (other.kunde != null)
-				return false;
-		} else if (!kunde.equals(other.kunde))
-			return false;
-		if (maxGerichte != other.maxGerichte)
-			return false;
-		if (!Arrays.equals(warenkorb, other.warenkorb))
-			return false;
-		if (zeitstempelAuslieferung == null) {
-			if (other.zeitstempelAuslieferung != null)
-				return false;
-		} else if (!zeitstempelAuslieferung.equals(other.zeitstempelAuslieferung))
-			return false;
-		if (zeitstempelBestellung == null) {
-			if (other.zeitstempelBestellung != null)
-				return false;
-		} else if (!zeitstempelBestellung.equals(other.zeitstempelBestellung))
-			return false;
-		return true;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public String toString() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Bestellung that = (Bestellung) o;
+        return maxGerichte == that.maxGerichte &&
+                index == that.index &&
+                Objects.equals(zeitstempelBestellung, that.zeitstempelBestellung) &&
+                Objects.equals(zeitstempelAuslieferung, that.zeitstempelAuslieferung) &&
+                Arrays.equals(warenkorb, that.warenkorb) &&
+                Objects.equals(kunde, that.kunde) &&
+                Objects.equals(status, that.status);
+    }
+
+    @Override
+    public int hashCode() {
+
+        int result = Objects.hash(zeitstempelBestellung, zeitstempelAuslieferung, maxGerichte, index, kunde, status);
+        result = 31 * result + Arrays.hashCode(warenkorb);
+        return result;
+    }
+
+    public String toString() {
 		String result =  "Bestellung:\nZeit der Bestellung: " + getZeitstempelBestellung() +
 			   "\nZeit der Lieferung: " + getZeitstempelAuslieferung() +
 			   "\nvon " + kunde.getVorname() +
 			   " " + kunde.getNachname() +
-			   " Kundennummer: " + kunde.getId();
+			   " Kundennummer: " + kunde.getId() +
+               "\nStatus: " + getStatus();
  		StringBuilder waren = new StringBuilder();
-		for (PizzaVO gericht : warenkorb) {
-			if (gericht != null)
-				waren.append(gericht.toString());
+		for (GerichtVO gericht : warenkorb) {
+		    if (gericht != null)
+		        waren.append(gericht.toString());
 		}
 		return result + waren;
 	}
 	
-	public void hinzufuegenGericht(PizzaVO gericht) {
+	public void hinzufuegenGericht(GerichtVO gericht) {
 		if (gericht != null) {
 			if (index < 10) {
 				warenkorb[index] = gericht;
@@ -123,7 +109,7 @@ public class Bestellung {
 		}
 	}
 	
-	public PizzaVO getGericht(int id) {
+	public GerichtVO getGericht(int id) {
 		if (id < 10 && id >= 0)
 			return warenkorb[id];
 		else return null;
@@ -132,140 +118,12 @@ public class Bestellung {
 	public int getAnzahlGerichte() {
 		return index;
 	}
+
+	public float berechneGesamtPreis() {
+	    float sum = 0.0f;
+	    for (GerichtVO gericht : warenkorb) {
+	        sum += gericht.getPreis();
+        }
+        return sum;
+    }
 }
-=======
-import java.time.LocalDateTime;
-import java.util.Arrays;
-
-public class Bestellung {
-	private LocalDateTime zeitstempelBestellung;
-	private LocalDateTime zeitstempelAuslieferung;
-	private PizzaVO[] warenkorb;
-	private final byte maxGerichte = 10;
-	private int index;
-	private KundeVO kunde;
-	
-	public Bestellung() {
-		this(null, null, null);
-	}
-
-	public Bestellung(LocalDateTime zeitstempelBestellung, LocalDateTime zeitstempelAuslieferung, KundeVO kunde) {
-		setZeitstempelBestellung(zeitstempelBestellung);
-		setZeitstempelAuslieferung(zeitstempelAuslieferung);
-		setKunde(kunde);
-		warenkorb = new PizzaVO[maxGerichte];
-		index = 0;
-	}
-	
-	public LocalDateTime getZeitstempelBestellung() {
-		return zeitstempelBestellung;
-	}
-	public void setZeitstempelBestellung(LocalDateTime zeitstempelBestellung) {
-		this.zeitstempelBestellung = zeitstempelBestellung;
-	}
-	public LocalDateTime getZeitstempelAuslieferung() {
-		return zeitstempelAuslieferung;
-	}
-	public void setZeitstempelAuslieferung(LocalDateTime zeitstempelAuslieferung) {
-		this.zeitstempelAuslieferung = zeitstempelAuslieferung;
-	}
-	
-	public KundeVO getKunde() {
-		return kunde;
-	}
-
-	public void setKunde(KundeVO kunde) {
-		this.kunde = kunde;
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + index;
-		result = prime * result + ((kunde == null) ? 0 : kunde.hashCode());
-		result = prime * result + maxGerichte;
-		result = prime * result + Arrays.hashCode(warenkorb);
-		result = prime * result + ((zeitstempelAuslieferung == null) ? 0 : zeitstempelAuslieferung.hashCode());
-		result = prime * result + ((zeitstempelBestellung == null) ? 0 : zeitstempelBestellung.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Bestellung other = (Bestellung) obj;
-		if (index != other.index)
-			return false;
-		if (kunde == null) {
-			if (other.kunde != null)
-				return false;
-		} else if (!kunde.equals(other.kunde))
-			return false;
-		if (maxGerichte != other.maxGerichte)
-			return false;
-		if (!Arrays.equals(warenkorb, other.warenkorb))
-			return false;
-		if (zeitstempelAuslieferung == null) {
-			if (other.zeitstempelAuslieferung != null)
-				return false;
-		} else if (!zeitstempelAuslieferung.equals(other.zeitstempelAuslieferung))
-			return false;
-		if (zeitstempelBestellung == null) {
-			if (other.zeitstempelBestellung != null)
-				return false;
-		} else if (!zeitstempelBestellung.equals(other.zeitstempelBestellung))
-			return false;
-		return true;
-	}
-
-	public String toString() {
-		String result =  "Bestellung:\nZeit der Bestellung: " + getZeitstempelBestellung() +
-			   "\nZeit der Lieferung: " + getZeitstempelAuslieferung() +
-			   "\nvon " + kunde.getVorname() +
-			   " " + kunde.getNachname() +
-			   " Kundennummer: " + kunde.getId();
- 		StringBuilder waren = new StringBuilder();
-		for (PizzaVO gericht : warenkorb) {
-			if (gericht != null)
-				waren.append(gericht.toString());
-		}
-		return result + waren;
-	}
-	
-	public void hinzufuegenGericht(PizzaVO gericht) {
-		if (gericht != null) {
-			if (index < 10) {
-				warenkorb[index] = gericht;
-				index++;
-			}
-		}
-	}
-	
-	public void loescheLetztesGericht() {
-		if (index > 0) {
-			warenkorb[index] = null;
-			index--;
-		}
-	}
-	
-	public PizzaVO getGericht(int id) {
-		if (id < 10 && id >= 0)
-			return warenkorb[id];
-		else return null;
-	}
-	
-	public int getAnzahlGerichte() {
-		return index;
-	}
-}
->>>>>>> c6029b0d041fd6ff5d4348b7d859970023a799ac
