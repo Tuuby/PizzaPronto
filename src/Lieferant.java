@@ -21,15 +21,17 @@ public class Lieferant extends Angestellter {
         StringBuilder meldung = new StringBuilder();
         Random zufall  = new Random();
         LocalDateTime date = LocalDateTime.now();
+        int minuten;
         if (aktuellerKunde.getBestellung().getStatus() == "fertig")
             meldung.append("Dienstleistung vom Lieferant " + personalNummer + ": Keine Bestellung zum Abarbeiten vorhanden.");
         else if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null)
             meldung.append("Dienstleistung vom Lieferant " + personalNummer + ": Keine Bestellung vorhanden.");
         else {
+            minuten = zufall.nextInt(120);
             meldung.append("Fahre zum Kunden ");
             meldung.append(aktuellerKunde.getVorname() + " " + aktuellerKunde.getNachname() + " " + aktuellerKunde.getStrasse());
-            meldung.append("\nFahrzeit: " + zufall.nextInt(120) + " Minuten");
-            meldung.append("\nDienstleistung vom Lieferant " + personalNummer + ": Bestellung fertig um " + date.plusMinutes(120).format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")) + " Uhr");
+            meldung.append("\nFahrzeit: " + minuten + " Minuten");
+            meldung.append("\nDienstleistung vom Lieferant " + personalNummer + ": Bestellung fertig um " + date.plusMinutes(minuten).format(DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm:ss")) + " Uhr");
         }
         return meldung.toString();
     }
