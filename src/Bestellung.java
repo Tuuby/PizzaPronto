@@ -6,7 +6,7 @@ public class Bestellung {
 	private LocalDateTime zeitstempelBestellung;
 	private LocalDateTime zeitstempelAuslieferung;
 	private GerichtVO[] warenkorb;
-	private final byte maxGerichte = 10;
+	private static final byte maxGerichte = 10;
 	private int index;
 	private KundeVO kunde;
 	private String status;
@@ -115,7 +115,13 @@ public class Bestellung {
 		else return null;
 	}
 	
-	public int getAnzahlGerichte() {
+	
+	
+	public static byte getMAX_GERICHTE() {
+		return maxGerichte;
+	}
+
+	public int getAnzGerichte() {
 		return index;
 	}
 

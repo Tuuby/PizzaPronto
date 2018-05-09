@@ -52,8 +52,13 @@ public abstract  class Angestellter extends PersonVO {
     }
 
     public String arbeitetFuerKunde(KundeVO kunde) {
-        aktuellerKunde = kunde;
-        return arbeiten() + kunde.toString();
+    	if (kunde == null || kunde.getBestellung() == null) {
+    		return "Keine Bestellung vorhanden";
+    	}
+    	else {
+            aktuellerKunde = kunde;
+            return arbeiten() + kunde.toString();
+    	}
     }
 
     public abstract String arbeiten();

@@ -10,6 +10,10 @@ public class Koch extends Angestellter{
 	public Koch(String nachname, String vorname, Color farbeSchuerze) {
 	    this(nachname, vorname, null, 0, null, farbeSchuerze);
     }
+	
+	public Koch(String nachname, String vorname, String strasse, int hausNr, String personalNummer) {
+		this(nachname, vorname, strasse, hausNr, personalNummer, null);
+	}
 
 	public Koch(String nachname, String vorname, String strasse, int hausNr, String personalNummer, Color farbeSchuerze) {
 		super(nachname, vorname, strasse, hausNr, personalNummer);
@@ -26,12 +30,16 @@ public class Koch extends Angestellter{
 
 	public String arbeiten() {
 	    String meldung;
-	    if (aktuellerKunde.getBestellung().getStatus() == "fertig")
-            meldung = "Dienstleistung vom Koch " + personalNummer + ": Bestellung fertig";
-	    else if (aktuellerKunde.getBestellung().getStatus() != "aufgegeben")
-	        meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung zum Abarbeiten vorhanden.";
-	    else
-            meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung vorhanden.";
+	    if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null) {
+	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung vorhanden.";
+	    }
+	    else if (aktuellerKunde.getBestellung().getStatus() != "aufgegeben") {
+	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung zum Abarbeiten vorhanden.";
+	    }
+	    else {
+	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Bestellung fertig.";
+	    	aktuellerKunde.getBestellung().setStatus("fertig");
+	    }
 	    return meldung;
     }
 
