@@ -13,7 +13,7 @@ public class Testtreiber {
         Random zufall = new Random();
 
         kunde1 = new KundeVO("Stark", "Tony", "Deruijter Straße", 45, "meannlich", LocalDate.of(1994, 2,12), null);
-        kunde2 = new KundeVO("Romanov", "Natalja", "Russen straße", 21, "weiblich", LocalDate.of(1999, 9, 23), null);
+        kunde2 = new KundeVO("Romanov", "Natasha", "Russen straße", 21, "weiblich", LocalDate.of(1999, 9, 23), null);
 
         bestell1 = new Bestellung(LocalDateTime.now().minusMinutes(54), kunde1);
         bestell2 = new Bestellung(LocalDateTime.now().minusMinutes(20), kunde2);

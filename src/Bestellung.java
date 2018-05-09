@@ -90,7 +90,7 @@ public class Bestellung {
 		    if (gericht != null)
 		        waren.append(gericht.toString());
 		}
-		return result + waren;
+		return result + waren + "\n";
 	}
 	
 	public void hinzufuegenGericht(GerichtVO gericht) {
