@@ -1,4 +1,7 @@
+package logik;
+
 import java.util.Objects;
+import datenobjekte.*;
 
 public abstract  class Angestellter extends PersonVO {
     protected String personalNummer;
@@ -53,7 +56,7 @@ public abstract  class Angestellter extends PersonVO {
 
     public String arbeitetFuerKunde(KundeVO kunde) {
     	if (kunde == null || kunde.getBestellung() == null) {
-    		return "Keine Bestellung vorhanden";
+    		return "Keine logik.Bestellung vorhanden";
     	}
     	else {
             aktuellerKunde = kunde;

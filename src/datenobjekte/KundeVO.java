@@ -1,9 +1,13 @@
+package datenobjekte;
+
+import logik.Bestellung;
+
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class KundeVO extends PersonVO{
-	private String geschlecht;
+public class KundeVO extends PersonVO {
+	private Geschlecht geschlecht;
 	private LocalDate geburtsdatum;
 	private int id;
 	private static int naechsteID = 0;
@@ -17,15 +21,15 @@ public class KundeVO extends PersonVO{
 		this(nachname, vorname, null, null);
 	}
 
-	public KundeVO(String nachname, String vorname, String geschlecht) {
+	public KundeVO(String nachname, String vorname, Geschlecht geschlecht) {
 		this(nachname, vorname, geschlecht, null);
 	}
 
-	public KundeVO(String nachname, String vorname, String geschlecht, LocalDate geburtsdatum) {
+	public KundeVO(String nachname, String vorname, Geschlecht geschlecht, LocalDate geburtsdatum) {
 	    this(nachname, vorname, null, 0, geschlecht, geburtsdatum, null);
 	}
 
-	public KundeVO(String nachname, String vorname, String strasse, int hausNr, String geschlecht, LocalDate geburtsdatum, Bestellung bestellung) {
+	public KundeVO(String nachname, String vorname, String strasse, int hausNr, Geschlecht geschlecht, LocalDate geburtsdatum, Bestellung bestellung) {
 	    super(nachname, vorname, strasse, hausNr);
         setGeschlecht(geschlecht);
         setGeburtsdatum(geburtsdatum);
@@ -34,11 +38,11 @@ public class KundeVO extends PersonVO{
         naechsteID ++;
     }
 
-	public String getGeschlecht() {
+	public Geschlecht getGeschlecht() {
 		return geschlecht;
 	}
 
-	public void setGeschlecht(String geschlecht) {
+	public void setGeschlecht(Geschlecht geschlecht) {
 		this.geschlecht = geschlecht;
 	}
 	
@@ -99,7 +103,7 @@ public class KundeVO extends PersonVO{
 		if (bestellung != null)
 		    customer += "\n" + bestellung.toString();
 		else
-		    customer += "\nKeine Bestellung vorhanden";
+		    customer += "\nKeine logik.Bestellung vorhanden";
 		return customer;
 	}
 

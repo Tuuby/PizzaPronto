@@ -1,3 +1,5 @@
+package datenobjekte;
+
 import java.util.Objects;
 
 public class PastaVO extends GerichtVO {
@@ -42,7 +44,7 @@ public class PastaVO extends GerichtVO {
     }
 
     public String getGerichtName() {
-        String pasta = "Pasta " + name;
+        String pasta = GerichtArt.PASTA.toString() + " " + name;
         switch (pastaSorte) {
             case 4:
                 pasta += "Spaghetti";

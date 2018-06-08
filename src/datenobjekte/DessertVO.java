@@ -1,3 +1,5 @@
+package datenobjekte;
+
 public class DessertVO extends GerichtVO {
 
     public DessertVO(int nummer, String name, float preis) {

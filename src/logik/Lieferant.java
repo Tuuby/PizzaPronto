@@ -1,6 +1,9 @@
-import java.time.LocalDate;
+package logik;
+
+import logik.Angestellter;
+import logik.Fahrer;
+
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Lieferant extends Angestellter implements Fahrer {
@@ -22,17 +25,17 @@ public class Lieferant extends Angestellter implements Fahrer {
         LocalDateTime date = LocalDateTime.now();
         int minuten;
         if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null) {
-        	meldung.append("Dienstleistung vom Lieferant " + personalNummer + ": Keine Bestellung vorhanden.");
+        	meldung.append("Dienstleistung vom logik.Lieferant " + personalNummer + ": Keine logik.Bestellung vorhanden.");
         }
         else if (aktuellerKunde.getBestellung().getStatus() != "fertig") {
-        	meldung.append("Dienstleistung vom Lieferant " + personalNummer + ": Keine Bestellung zum Abarbeiten vorhanden.");
+        	meldung.append("Dienstleistung vom logik.Lieferant " + personalNummer + ": Keine logik.Bestellung zum Abarbeiten vorhanden.");
         }
         else {
         	meldung.append("Fahre zu Kunden " + aktuellerKunde.getNachname() + " " + aktuellerKunde.getStrasse() + " " + aktuellerKunde.getHausNr());
         	minuten = fahreFahrzeug();
         	meldung.append("Fahrzeit: " + minuten + "Minuten");
         	aktuellerKunde.getBestellung().setZeitstempelAuslieferung(LocalDateTime.now().plusMinutes(minuten));
-        	meldung.append("Dienstleistung vom Lieferat " + personalNummer + ": Bestellung fertig um " + LocalDateTime.now().plusMinutes(minuten));
+        	meldung.append("Dienstleistung vom Lieferat " + personalNummer + ": logik.Bestellung fertig um " + LocalDateTime.now().plusMinutes(minuten));
         	aktuellerKunde.getBestellung().setStatus("ausgeliefert");
         }
         return meldung.toString();

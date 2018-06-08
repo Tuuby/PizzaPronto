@@ -1,6 +1,9 @@
+package logik;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
+import datenobjekte.*;
 
 public class Bestellung {
 	private LocalDateTime zeitstempelBestellung;
@@ -79,7 +82,7 @@ public class Bestellung {
     }
 
     public String toString() {
-		String result =  "Bestellung:\nZeit der Bestellung: " + getZeitstempelBestellung() +
+		String result =  "logik.Bestellung:\nZeit der logik.Bestellung: " + getZeitstempelBestellung() +
 			   "\nZeit der Lieferung: " + getZeitstempelAuslieferung() +
 			   "\nvon " + kunde.getVorname() +
 			   " " + kunde.getNachname() +

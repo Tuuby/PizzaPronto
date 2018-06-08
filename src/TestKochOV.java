@@ -1,3 +1,5 @@
+import logik.Koch;
+
 import java.awt.Color;
 
 public class TestKochOV {

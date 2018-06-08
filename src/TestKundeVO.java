@@ -1,3 +1,5 @@
+import datenobjekte.KundeVO;
+
 import java.time.LocalDate;
 
 public class TestKundeVO {

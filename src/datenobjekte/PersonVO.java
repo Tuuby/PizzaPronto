@@ -1,3 +1,5 @@
+package datenobjekte;
+
 import java.util.Objects;
 
 public abstract class PersonVO {

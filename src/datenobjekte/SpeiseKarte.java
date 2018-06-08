@@ -1,3 +1,10 @@
+package datenobjekte;
+
+import datenobjekte.DessertVO;
+import datenobjekte.GerichtVO;
+import datenobjekte.PastaVO;
+import datenobjekte.PizzaVO;
+
 import java.text.DecimalFormat;
 
 public class SpeiseKarte {

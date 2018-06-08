@@ -1,3 +1,5 @@
+package datenobjekte;
+
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -76,8 +78,8 @@ public abstract class GerichtVO {
         return result;
     }
 
-    /*public GerichtVO clone() {
-        GerichtVO gericht = new GerichtVO(nummer, name, zutaten, preis);
+    /*public datenobjekte.GerichtVO clone() {
+        datenobjekte.GerichtVO gericht = new datenobjekte.GerichtVO(nummer, name, zutaten, preis);
         return gericht;
         }
     }*/

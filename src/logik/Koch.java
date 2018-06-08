@@ -1,6 +1,10 @@
+package logik;
+
+import logik.Angestellter;
+import datenobjekte.SpeiseKarte;
 import java.awt.Color;
 
-public class Koch extends Angestellter{
+public class Koch extends Angestellter {
 	private Color farbeSchuerze;
 	
 	public Koch() {
@@ -31,13 +35,13 @@ public class Koch extends Angestellter{
 	public String arbeiten() {
 	    String meldung;
 	    if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null) {
-	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung vorhanden.";
+	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": Keine logik.Bestellung vorhanden.";
 	    }
 	    else if (aktuellerKunde.getBestellung().getStatus() != "aufgegeben") {
-	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Keine Bestellung zum Abarbeiten vorhanden.";
+	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": Keine logik.Bestellung zum Abarbeiten vorhanden.";
 	    }
 	    else {
-	    	meldung = "Dienstleistung vom Koch " + personalNummer + ": Bestellung fertig.";
+	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": logik.Bestellung fertig.";
 	    	aktuellerKunde.getBestellung().setStatus("fertig");
 	    }
 	    return meldung;
@@ -49,7 +53,7 @@ public class Koch extends Angestellter{
     }
 
 	public String toString() {
-		return "Koch:\nVorname: " + vorname +
+		return "logik.Koch:\nVorname: " + vorname +
 			   "\nNachname: " + nachname +
 			   "\nFarbe der Schuerze: " + farbeSchuerze.toString();
 	}

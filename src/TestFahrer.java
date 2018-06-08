@@ -1,3 +1,9 @@
+import datenobjekte.KundeVO;
+import logik.Angestellter;
+import logik.Bestellung;
+import logik.Fahrer;
+import logik.Lieferant;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

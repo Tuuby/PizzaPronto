@@ -1,6 +1,8 @@
+package datenobjekte;
+
 import java.util.Arrays;
 
-public class PizzaVO extends GerichtVO{
+public class PizzaVO extends GerichtVO {
 	private int groesse;
 	
 	public PizzaVO() {
@@ -79,7 +81,7 @@ public class PizzaVO extends GerichtVO{
 	}
 
 	public String getGerichtName() {
-	    String pizza = "Pizza " + name;
+	    String pizza = GerichtArt.PIZZA.toString() + " " + name;
 	    switch (groesse) {
             case 1:
                 pizza += " - Normal";
