@@ -65,11 +65,15 @@ public class PizzaVO extends GerichtVO {
 	}
 
 	public Object clone() {
-		PizzaVO p;
-		p = new PizzaVO(nummer, name, zutaten, preis);
-		return p;
+		Object other = null;
+		try {
+			other = super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println(e.getMessage());
+		}
+		return other;
 	}
-	
+
 	public String toString() {
 		String pizza = "";
 		pizza += "\nPizza:\nName: " + name +

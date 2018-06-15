@@ -2,6 +2,9 @@ package logik;
 
 import logik.Angestellter;
 import logik.Fahrer;
+import logik.exceptions.BestellungFalscherStatusException;
+import logik.exceptions.KeinKundeException;
+import logik.exceptions.KeineBestellungException;
 
 import java.time.LocalDateTime;
 import java.util.Random;
@@ -20,15 +23,18 @@ public class Lieferant extends Angestellter implements Fahrer {
         this(null, null, null, 0, null);
     }
 
-    public String arbeiten() {
+    public String arbeiten() throws KeinKundeException, KeineBestellungException, BestellungFalscherStatusException {
         StringBuilder meldung = new StringBuilder();
         LocalDateTime date = LocalDateTime.now();
         int minuten;
-        if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null) {
-        	meldung.append("Dienstleistung vom logik.Lieferant " + personalNummer + ": Keine logik.Bestellung vorhanden.");
+        if (aktuellerKunde == null) {
+        	throw new KeinKundeException("Kein Kunde vorhanden");
         }
-        else if (aktuellerKunde.getBestellung().getStatus() != "fertig") {
-        	meldung.append("Dienstleistung vom logik.Lieferant " + personalNummer + ": Keine logik.Bestellung zum Abarbeiten vorhanden.");
+        if (aktuellerKunde.getBestellung() == null) {
+            throw new KeineBestellungException("Dieser Kunde hat nichts bestellt");
+        }
+        if (aktuellerKunde.getBestellung().getStatus() != "fertig") {
+        	throw new BestellungFalscherStatusException("Die Bestellung ist nicht fertig");
         }
         else {
         	meldung.append("Fahre zu Kunden " + aktuellerKunde.getNachname() + " " + aktuellerKunde.getStrasse() + " " + aktuellerKunde.getHausNr());

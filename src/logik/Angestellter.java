@@ -2,6 +2,9 @@ package logik;
 
 import java.util.Objects;
 import datenobjekte.*;
+import logik.exceptions.BestellungFalscherStatusException;
+import logik.exceptions.KeinKundeException;
+import logik.exceptions.KeineBestellungException;
 
 public abstract  class Angestellter extends PersonVO {
     protected String personalNummer;
@@ -54,15 +57,17 @@ public abstract  class Angestellter extends PersonVO {
         return angestellter;
     }
 
-    public String arbeitetFuerKunde(KundeVO kunde) {
-    	if (kunde == null || kunde.getBestellung() == null) {
-    		return "Keine logik.Bestellung vorhanden";
+    public String arbeitetFuerKunde(KundeVO kunde) throws KeinKundeException, KeineBestellungException, BestellungFalscherStatusException {
+    	if (kunde == null) {
+    	    throw new KeinKundeException("Kein Kunde.");
     	}
-    	else {
+    	if (kunde.getBestellung() != null) {
             aktuellerKunde = kunde;
             return arbeiten() + kunde.toString();
-    	}
+        }
+        else
+            return "Keine Bestellung vorhanden.";
     }
 
-    public abstract String arbeiten();
+    public abstract String arbeiten() throws KeinKundeException, KeineBestellungException, BestellungFalscherStatusException;
 }

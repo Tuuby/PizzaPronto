@@ -14,11 +14,10 @@ public class TestFahrer {
 		Lieferant liefer = new Lieferant("Skywalker", "Luke", "Tattoineweg", 32, "7");
 		lieferant2 = liefer;
 		
-		KundeVO kunde = new KundeVO("Hans", "Kunz", "Strasse", 2, "maennlich", LocalDate.of(15,  06,  1996), null);
-		Bestellung bestell = new Bestellung(LocalDateTime.now(), kunde);
-		bestell.setStatus("fertig");
-		kunde.setBestellung(bestell);
-		lieferant1.arbeitetFuerKunde(kunde);
-		((Angestellter) lieferant2).arbeitetFuerKunde(kunde);
+		//KundeVO kunde = new KundeVO("Hans", "Kunz", "Strasse", 2, "maennlich", LocalDate.of(15,  06,  1996), null);
+		//bestell.setStatus("fertig");
+		//kunde.setBestellung(bestell);
+		//lieferant1.arbeitetFuerKunde(kunde);
+		//((Angestellter) lieferant2).arbeitetFuerKunde(kunde);
 	}
 }

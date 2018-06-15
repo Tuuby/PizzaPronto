@@ -2,6 +2,10 @@ package logik;
 
 import logik.Angestellter;
 import datenobjekte.SpeiseKarte;
+import logik.exceptions.BestellungFalscherStatusException;
+import logik.exceptions.KeinKundeException;
+import logik.exceptions.KeineBestellungException;
+
 import java.awt.Color;
 
 public class Koch extends Angestellter {
@@ -32,18 +36,19 @@ public class Koch extends Angestellter {
 		this.farbeSchuerze = farbeSchuerze;
 	}
 
-	public String arbeiten() {
+	public String arbeiten() throws KeinKundeException, KeineBestellungException, BestellungFalscherStatusException {
 	    String meldung;
-	    if (aktuellerKunde == null || aktuellerKunde.getBestellung() == null) {
-	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": Keine logik.Bestellung vorhanden.";
+	    if (aktuellerKunde == null) {
+	    	throw new KeinKundeException("Es ist kein Kunde vorhanden.");
 	    }
-	    else if (aktuellerKunde.getBestellung().getStatus() != "aufgegeben") {
-	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": Keine logik.Bestellung zum Abarbeiten vorhanden.";
+	    if (aktuellerKunde.getBestellung() == null) {
+	        throw new KeineBestellungException("Dieser Kunde hat nichts bestellt.");
+        }
+	    if (aktuellerKunde.getBestellung().getStatus() != "aufgegeben") {
+	    	throw new BestellungFalscherStatusException("Bestellung ist nicht aufgegeben.");
 	    }
-	    else {
-	    	meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": logik.Bestellung fertig.";
-	    	aktuellerKunde.getBestellung().setStatus("fertig");
-	    }
+	    meldung = "Dienstleistung vom logik.Koch " + personalNummer + ": logik.Bestellung fertig.";
+	    aktuellerKunde.getBestellung().setStatus("fertig");
 	    return meldung;
     }
 

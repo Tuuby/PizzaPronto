@@ -38,9 +38,14 @@ public class PastaVO extends GerichtVO {
         return Objects.hash(super.hashCode(), pastaSorte);
     }
 
-    public PastaVO clone() {
-        PastaVO pastaVO = new PastaVO(nummer, name, zutaten, preis, pastaSorte);
-        return pastaVO;
+    public Object clone() {
+        Object other = null;
+        try {
+            other = super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+        return other;
     }
 
     public String getGerichtName() {

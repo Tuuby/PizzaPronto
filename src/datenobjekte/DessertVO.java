@@ -10,9 +10,14 @@ public class DessertVO extends GerichtVO {
         super(0, null, null, 0.0f);
     }
 
-    public DessertVO clone() {
-        DessertVO dessertVO = new DessertVO(nummer, name, preis);
-        return dessertVO;
+    public Object clone() {
+        Object other = null;
+        try {
+            other = super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
+        }
+        return other;
     }
 
     public String getGerichtName() {

@@ -3,7 +3,7 @@ package datenobjekte;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class GerichtVO {
+public abstract class GerichtVO implements Cloneable{
     protected int nummer;
     protected String name;
     protected String[] zutaten;
@@ -78,10 +78,18 @@ public abstract class GerichtVO {
         return result;
     }
 
-    /*public datenobjekte.GerichtVO clone() {
-        datenobjekte.GerichtVO gericht = new datenobjekte.GerichtVO(nummer, name, zutaten, preis);
-        return gericht;
+    public Object clone() throws CloneNotSupportedException {
+            return super.clone();
+    }
+
+    /*public Object clone() {
+        Object other = null;
+        try {
+            other = super.clone();
+        } catch (CloneNotSupportedException e) {
+            System.out.println(e.getMessage());
         }
+        return other;
     }*/
 
     public String toString() {

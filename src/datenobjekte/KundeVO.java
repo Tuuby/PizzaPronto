@@ -1,5 +1,7 @@
 package datenobjekte;
 
+import datenobjekte.exceptions.KundeKeinGeburtsdatumException;
+import datenobjekte.exceptions.KundeZuJungException;
 import logik.Bestellung;
 
 import java.time.LocalDate;
@@ -12,24 +14,12 @@ public class KundeVO extends PersonVO {
 	private int id;
 	private static int naechsteID = 0;
 	private Bestellung bestellung;
-	
-	public KundeVO() {
-		this(null, null, null, null);
-	}
 
-	public KundeVO(String nachname, String vorname) {
-		this(nachname, vorname, null, null);
-	}
-
-	public KundeVO(String nachname, String vorname, Geschlecht geschlecht) {
-		this(nachname, vorname, geschlecht, null);
-	}
-
-	public KundeVO(String nachname, String vorname, Geschlecht geschlecht, LocalDate geburtsdatum) {
+	public KundeVO(String nachname, String vorname, Geschlecht geschlecht, LocalDate geburtsdatum) throws KundeZuJungException, KundeKeinGeburtsdatumException {
 	    this(nachname, vorname, null, 0, geschlecht, geburtsdatum, null);
 	}
 
-	public KundeVO(String nachname, String vorname, String strasse, int hausNr, Geschlecht geschlecht, LocalDate geburtsdatum, Bestellung bestellung) {
+	public KundeVO(String nachname, String vorname, String strasse, int hausNr, Geschlecht geschlecht, LocalDate geburtsdatum, Bestellung bestellung) throws KundeZuJungException, KundeKeinGeburtsdatumException{
 	    super(nachname, vorname, strasse, hausNr);
         setGeschlecht(geschlecht);
         setGeburtsdatum(geburtsdatum);
@@ -50,16 +40,23 @@ public class KundeVO extends PersonVO {
 		return geburtsdatum;
 	}
 
-	private String getGeburtsdatumStr() {
+	private String getGeburtsdatumStr() throws KundeKeinGeburtsdatumException{
+	    if (geburtsdatum == null) {
+	        throw new KundeKeinGeburtsdatumException("Kein Geburtsdatum vorhanden.");
+        }
 		return geburtsdatum.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 	}
 
-	public void setGeburtsdatum(LocalDate geburtsdatum) {
+	public void setGeburtsdatum(LocalDate geburtsdatum) throws KundeKeinGeburtsdatumException, KundeZuJungException {
+		if (geburtsdatum == null) {
+			throw new KundeKeinGeburtsdatumException("Kein Geburtsdatum angegeben.");
+		}
 		this.geburtsdatum = geburtsdatum;
 		if (berechneAlter() > 17)
 			this.geburtsdatum = geburtsdatum;
 		else
 			this.geburtsdatum = null;
+			throw new KundeZuJungException("Kunde ist zu jung.");
 	}
 	
 	public Bestellung getBestellung() {
@@ -85,21 +82,25 @@ public class KundeVO extends PersonVO {
 			return false;
 	}
 	
-	public short berechneAlter() {
+	public short berechneAlter() throws KundeKeinGeburtsdatumException{
 		if (geburtsdatum != null)
 			if (geburtsdatum.getYear() <= LocalDate.now().getYear())
 				return (short) Period.between(geburtsdatum, LocalDate.now()).getYears();
 			else
 				return -1;
 		else
-			return -1;
+			throw new KundeKeinGeburtsdatumException("Kein Geburtsdatum angegeben");
 	}
 
 	public String toString() {
 		String customer = "";
-		customer += super.toString()+ "Kunde: \nGeschlecht: " + geschlecht +
-					"\nGeburtsdatum: " + getGeburtsdatumStr() +
-					"\nAlter: " + berechneAlter();
+        customer += super.toString() + "Kunde: \nGeschlecht: " + geschlecht;
+		try {
+            customer += "\nGeburtsdatum: " + getGeburtsdatumStr() +
+                        "\nAlter: " + berechneAlter();
+        } catch (KundeKeinGeburtsdatumException e) {
+		    customer += "Geburtsdatum NaN";
+        }
 		if (bestellung != null)
 		    customer += "\n" + bestellung.toString();
 		else
