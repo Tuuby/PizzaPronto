@@ -46,9 +46,7 @@ public class Testtreiber {
 
             System.out.println(bestell1.toString());
             System.out.println(bestell2.toString());
-        } catch (KundeZuJungException e) {
-            System.err.println(e.getMessage());
-        } catch (KundeKeinGeburtsdatumException e) {
+        } catch (KundeZuJungException | KundeKeinGeburtsdatumException e) {
             System.err.println(e.getMessage());
         }
     }

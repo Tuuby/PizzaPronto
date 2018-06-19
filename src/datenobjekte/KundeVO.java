@@ -54,9 +54,10 @@ public class KundeVO extends PersonVO {
 		this.geburtsdatum = geburtsdatum;
 		if (berechneAlter() > 17)
 			this.geburtsdatum = geburtsdatum;
-		else
+		else {
 			this.geburtsdatum = null;
 			throw new KundeZuJungException("Kunde ist zu jung.");
+		}
 	}
 	
 	public Bestellung getBestellung() {
