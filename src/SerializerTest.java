@@ -29,6 +29,10 @@ public class SerializerTest {
 
         try {
             Serializer serializer = new Serializer("Bestellung.ser");
+            for (int i = 0; i < ANZ; i++) {
+                serializer.serializeBestellung(bestellungen[i]);
+            }
+            serializer.closeOutput();
         } catch (IOException e) {
             System.out.println("IO Fehler beim Bestellung ausgeben.");
         }

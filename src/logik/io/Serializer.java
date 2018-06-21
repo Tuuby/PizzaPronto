@@ -9,8 +9,8 @@ public class Serializer {
     private ObjectInputStream is;
 
     public Serializer(String datei) throws IOException{
-        ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(datei));
-        ObjectInputStream is = new ObjectInputStream(new FileInputStream(datei));
+        os = new ObjectOutputStream(new FileOutputStream(datei));
+        is = new ObjectInputStream(new FileInputStream(datei));
     }
 
     public void serializeBestellung(Bestellung bestellung) throws IOException {
