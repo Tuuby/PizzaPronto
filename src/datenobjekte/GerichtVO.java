@@ -1,9 +1,10 @@
 package datenobjekte;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class GerichtVO implements Cloneable{
+public abstract class GerichtVO implements Cloneable, Serializable {
     protected int nummer;
     protected String name;
     protected String[] zutaten;

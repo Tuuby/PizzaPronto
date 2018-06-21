@@ -4,11 +4,12 @@ import datenobjekte.exceptions.KundeKeinGeburtsdatumException;
 import datenobjekte.exceptions.KundeZuJungException;
 import logik.Bestellung;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
 
-public class KundeVO extends PersonVO {
+public class KundeVO extends PersonVO implements Serializable{
 	private Geschlecht geschlecht;
 	private LocalDate geburtsdatum;
 	private int id;

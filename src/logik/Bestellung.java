@@ -1,11 +1,12 @@
 package logik;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Objects;
 import datenobjekte.*;
 
-public class Bestellung {
+public class Bestellung implements Serializable {
 	private LocalDateTime zeitstempelBestellung;
 	private LocalDateTime zeitstempelAuslieferung;
 	private GerichtVO[] warenkorb;
