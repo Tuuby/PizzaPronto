@@ -1,6 +1,8 @@
 package datenobjekte;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class PizzaVO extends GerichtVO {
 	private int groesse;
@@ -9,11 +11,11 @@ public class PizzaVO extends GerichtVO {
 		super(0, null, null, 0.0f);
 	}
 
-	public PizzaVO(int nummer, String name, String[] zutaten, float preis) {
+	public PizzaVO(int nummer, String name, ArrayList<String> zutaten, float preis) {
 	    super(0, null, null, 0.0f);
     }
 	
-	public PizzaVO(int nummer, String name, String[] zutaten, float preis, int groesse) {
+	public PizzaVO(int nummer, String name, ArrayList<String > zutaten, float preis, int groesse) {
 		super(nummer, name, zutaten, preis);
 		setGroesse(groesse);
 	}
@@ -32,36 +34,20 @@ public class PizzaVO extends GerichtVO {
 			System.out.println(zutat);
 		}
 	}
-	
+
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + Float.floatToIntBits(preis);
-		result = prime * result + Arrays.hashCode(zutaten);
-		return result;
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+		PizzaVO pizzaVO = (PizzaVO) o;
+		return groesse == pizzaVO.groesse;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PizzaVO other = (PizzaVO) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (Float.floatToIntBits(preis) != Float.floatToIntBits(other.preis))
-			return false;
-		if (!Arrays.equals(zutaten, other.zutaten))
-			return false;
-		return true;
+	public int hashCode() {
+
+		return Objects.hash(super.hashCode(), groesse);
 	}
 
 	public Object clone() {

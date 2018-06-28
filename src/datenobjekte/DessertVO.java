@@ -1,9 +1,11 @@
 package datenobjekte;
 
+import java.util.ArrayList;
+
 public class DessertVO extends GerichtVO {
 
     public DessertVO(int nummer, String name, float preis) {
-        super(nummer, name, new String[]{}, preis);
+        super(nummer, name, new ArrayList<String>(){}, preis);
     }
 
     public DessertVO() {

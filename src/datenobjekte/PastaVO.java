@@ -1,11 +1,12 @@
 package datenobjekte;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class PastaVO extends GerichtVO {
     private int pastaSorte;
 
-    public PastaVO(int nummer, String name, String[] zutaten, float preis, int pastaSorte) {
+    public PastaVO(int nummer, String name, ArrayList<String> zutaten, float preis, int pastaSorte) {
         super(nummer, name, zutaten, preis);
         setPastaSorte(pastaSorte);
     }

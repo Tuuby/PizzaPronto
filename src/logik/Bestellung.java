@@ -3,15 +3,14 @@ package logik;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.Objects;
 import datenobjekte.*;
 
 public class Bestellung implements Serializable {
 	private LocalDateTime zeitstempelBestellung;
 	private LocalDateTime zeitstempelAuslieferung;
-	private GerichtVO[] warenkorb;
-	private static final byte maxGerichte = 10;
-	private int index;
+	private LinkedList<GerichtVO> warenkorb;
 	private KundeVO kunde;
 	private String status;
 	
@@ -22,8 +21,7 @@ public class Bestellung implements Serializable {
 	public Bestellung(LocalDateTime zeitstempelBestellung, KundeVO kunde) {
 		setZeitstempelBestellung(zeitstempelBestellung);
 		setKunde(kunde);
-		warenkorb = new GerichtVO[maxGerichte];
-		index = 0;
+		warenkorb = new LinkedList<GerichtVO>();
 		status = "aufgegeben";
 	}
 	
@@ -48,10 +46,6 @@ public class Bestellung implements Serializable {
 		this.kunde = kunde;
 	}
 
-	public int getIndex() {
-		return index;
-	}
-
 	public String getStatus() {
 		return status;
 	}
@@ -60,29 +54,25 @@ public class Bestellung implements Serializable {
 		this.status = status;
 	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Bestellung that = (Bestellung) o;
-        return maxGerichte == that.maxGerichte &&
-                index == that.index &&
-                Objects.equals(zeitstempelBestellung, that.zeitstempelBestellung) &&
-                Objects.equals(zeitstempelAuslieferung, that.zeitstempelAuslieferung) &&
-                Arrays.equals(warenkorb, that.warenkorb) &&
-                Objects.equals(kunde, that.kunde) &&
-                Objects.equals(status, that.status);
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Bestellung that = (Bestellung) o;
+		return Objects.equals(zeitstempelBestellung, that.zeitstempelBestellung) &&
+				Objects.equals(zeitstempelAuslieferung, that.zeitstempelAuslieferung) &&
+				Objects.equals(warenkorb, that.warenkorb) &&
+				Objects.equals(kunde, that.kunde) &&
+				Objects.equals(status, that.status);
+	}
 
-    @Override
-    public int hashCode() {
+	@Override
+	public int hashCode() {
 
-        int result = Objects.hash(zeitstempelBestellung, zeitstempelAuslieferung, maxGerichte, index, kunde, status);
-        result = 31 * result + Arrays.hashCode(warenkorb);
-        return result;
-    }
+		return Objects.hash(zeitstempelBestellung, zeitstempelAuslieferung, warenkorb, kunde, status);
+	}
 
-    public String toString() {
+	public String toString() {
 		String result =  "logik.Bestellung:\nZeit der logik.Bestellung: " + getZeitstempelBestellung() +
 			   "\nZeit der Lieferung: " + getZeitstempelAuslieferung() +
 			   "\nvon " + kunde.getVorname() +
@@ -99,34 +89,26 @@ public class Bestellung implements Serializable {
 	
 	public void hinzufuegenGericht(GerichtVO gericht) {
 		if (gericht != null) {
-			if (index < 10) {
-				warenkorb[index] = gericht;
-				index++;
+			if (warenkorb.size() < 10) {
+				warenkorb.add(gericht);
 			}
 		}
 	}
 	
-	public void loescheLetztesGericht() {
-		if (index > 0) {
-			warenkorb[index] = null;
-			index--;
+	public void loescheGericht(GerichtVO gericht) {
+		if (warenkorb.size() > 0) {
+			warenkorb.remove(gericht);
 		}
 	}
 	
 	public GerichtVO getGericht(int id) {
 		if (id < 10 && id >= 0)
-			return warenkorb[id];
+			return warenkorb.get(id);
 		else return null;
-	}
-	
-	
-	
-	public static byte getMAX_GERICHTE() {
-		return maxGerichte;
 	}
 
 	public int getAnzGerichte() {
-		return index;
+		return warenkorb.size();
 	}
 
 	public float berechneGesamtPreis() {

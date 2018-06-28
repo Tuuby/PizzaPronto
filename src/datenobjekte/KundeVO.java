@@ -8,8 +8,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.util.Comparator;
 
-public class KundeVO extends PersonVO implements Serializable{
+public class KundeVO extends PersonVO implements Serializable, Comparable {
 	private Geschlecht geschlecht;
 	private LocalDate geburtsdatum;
 	private int id;
@@ -96,7 +97,7 @@ public class KundeVO extends PersonVO implements Serializable{
 
 	public String toString() {
 		String customer = "";
-        customer += super.toString() + "Kunde: \nGeschlecht: " + geschlecht;
+        customer += super.toString() + "\nKunde: \nGeschlecht: " + geschlecht;
 		try {
             customer += "\nGeburtsdatum: " + getGeburtsdatumStr() +
                         "\nAlter: " + berechneAlter();
@@ -106,7 +107,7 @@ public class KundeVO extends PersonVO implements Serializable{
 		if (bestellung != null)
 		    customer += "\n" + bestellung.toString();
 		else
-		    customer += "\nKeine logik.Bestellung vorhanden";
+		    customer += "\nKeine Bestellung vorhanden";
 		return customer;
 	}
 
@@ -133,5 +134,13 @@ public class KundeVO extends PersonVO implements Serializable{
             }
         }
         return false;
+	}
+
+	public int compareTo(Object o) {
+	    if (o instanceof KundeVO) {
+	        return nachname.compareTo(((KundeVO)o).nachname);
+        }
+        else
+            throw new ClassCastException();
 	}
 }

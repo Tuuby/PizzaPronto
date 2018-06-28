@@ -1,16 +1,17 @@
 package datenobjekte;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
 public abstract class GerichtVO implements Cloneable, Serializable {
     protected int nummer;
     protected String name;
-    protected String[] zutaten;
+    protected ArrayList<String> zutaten;
     protected float preis;
 
-    public GerichtVO(int nummer, String name, String[] zutaten, float preis) {
+    public GerichtVO(int nummer, String name, ArrayList<String> zutaten, float preis) {
         setNummer(nummer);
         setName(name);
         setZutaten(zutaten);
@@ -41,11 +42,11 @@ public abstract class GerichtVO implements Cloneable, Serializable {
         this.name = name;
     }
 
-    public String[] getZutaten() {
+    public ArrayList<String> getZutaten() {
         return zutaten;
     }
 
-    public void setZutaten(String[] zutaten) {
+    public void setZutaten(ArrayList<String> zutaten) {
         this.zutaten = zutaten;
     }
 
@@ -58,6 +59,7 @@ public abstract class GerichtVO implements Cloneable, Serializable {
     }
 
     public abstract String getGerichtName();
+
     public abstract int getGerichtNummer();
 
     @Override
@@ -68,30 +70,18 @@ public abstract class GerichtVO implements Cloneable, Serializable {
         return nummer == gerichtVO.nummer &&
                 Float.compare(gerichtVO.preis, preis) == 0 &&
                 Objects.equals(name, gerichtVO.name) &&
-                Arrays.equals(zutaten, gerichtVO.zutaten);
+                Objects.equals(zutaten, gerichtVO.zutaten);
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(nummer, name, preis);
-        result = 31 * result + Arrays.hashCode(zutaten);
-        return result;
+        return Objects.hash(nummer, name, zutaten, preis);
     }
 
     public Object clone() throws CloneNotSupportedException {
             return super.clone();
     }
-
-    /*public Object clone() {
-        Object other = null;
-        try {
-            other = super.clone();
-        } catch (CloneNotSupportedException e) {
-            System.out.println(e.getMessage());
-        }
-        return other;
-    }*/
 
     public String toString() {
         String gericht = "";
@@ -109,7 +99,7 @@ public abstract class GerichtVO implements Cloneable, Serializable {
         int pos = 1;
         for (String zutat : zutaten) {
             gericht += zutat;
-            if (zutaten.length != pos) {
+            if (zutaten.size() != pos) {
                 gericht += ", ";
             }
             pos++;

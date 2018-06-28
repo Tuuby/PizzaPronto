@@ -75,6 +75,6 @@ public abstract class PersonVO {
     public String toString() {
         return "Person:\n" +
                "Name: " + nachname + ", " + vorname +
-               "Adresse: " + strasse + " " + hausNr;
+               "\nAdresse: " + strasse + " " + hausNr;
     }
 }
