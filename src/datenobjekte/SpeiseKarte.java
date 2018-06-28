@@ -9,12 +9,17 @@ import java.lang.reflect.Array;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class SpeiseKarte{
     private ArrayList<GerichtVO> speisen;
 
     public SpeiseKarte() {
         intSpeiseKarte();
+    }
+
+    public SpeiseKarte(LinkedList<GerichtVO> linkedList) {
+        speisen = new ArrayList<GerichtVO>(linkedList);
     }
 
     private void intSpeiseKarte() {
