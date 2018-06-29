@@ -1,6 +1,7 @@
 package de.thb.fim.pizzaPronto.datenobjekte;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -46,12 +47,17 @@ public abstract class GerichtVO implements Cloneable, Serializable {
     }
 
     public void setZutaten(ArrayList<String> zutaten) {
-        this.zutaten = new ArrayList<String>();
-        this.zutaten = zutaten;
+        if (zutaten != null) {
+            this.zutaten = zutaten;
+        } else {
+            this.zutaten = new ArrayList<String>();
+        }
     }
     
     public void addZutat(String zutat) {
-    	zutaten.add(zutat);
+        if (zutat != null) {
+            zutaten.add(zutat);
+        }
     }
 
     public float getPreis() {

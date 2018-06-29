@@ -16,5 +16,4 @@ public class TestUe12 {
 		ski.leseSpeisekarte("meineKleineSpeisekarte.txt");
 		System.out.println("finished");
 	}
-
 }
